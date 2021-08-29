@@ -3,19 +3,56 @@ import React, { useState } from "react";
 function MenuOption(props) {
     const { name, img, description, price } = props.menu;
     const { src, alt } = img;
+    const { mealOrder, drinkOrder, dessertOrder, addOrder ,removeOrder} = props.order;
+    const type = props.type;
     const [selection, setSelection] = useState("");
-    const [counter,setCounter] = useState(0);
-    function initCount(){
+    const [counter, setCounter] = useState(0);
+
+    function initCount() {
         if (counter >= 1) return;
-        setSelection("selected")
+        setSelection("selected");
         setCounter(1);
+        addOrder({ name, qtd: counter + 1 }, type);
+
     }
-    function increment(){
-        setCounter(counter+1);
+    function increment() {
+        setCounter(counter + 1);
+        let thisOption;
+        switch (type) {
+            case "meal":
+                thisOption = mealOrder.find(option => option.name === name);
+                break;
+            case "drink":
+                thisOption = drinkOrder.find(option => option.name === name);
+                break;
+            case "dessert":
+                thisOption = dessertOrder.find(option => option.name === name);
+                break;
+            default: break;
+        }
+
+        thisOption.qtd = counter + 1;
+
     }
-    function decrement(){
-        if (counter===1) setSelection("");
-        setCounter(counter-1);
+    function decrement() {
+        if (counter === 1) setSelection("");
+        setCounter(counter - 1);
+        let thisOption;
+        switch (type) {
+            case "meal":
+                thisOption = mealOrder.find(option => option.name === name);
+                break;
+            case "drink":
+                thisOption = drinkOrder.find(option => option.name === name);
+                break;
+            case "dessert":
+                thisOption = dessertOrder.find(option => option.name === name);
+                break;
+            default: break;
+        }
+
+        thisOption.qtd = counter - 1;
+        if (thisOption.qtd === 0) removeOrder(thisOption,type);
     }
     return (
         <li className={"option " + selection} onClick={initCount}>
@@ -34,16 +71,16 @@ function MenuOption(props) {
     );
 }
 export default function Menu(props) {
-    const { name, type } = props.menu;
+    const { name, type, order } = props.menu;
     let menuTitle;
     if (type === 'meal') menuTitle = "Primeiro seu prato"; else if (type === 'drink') {
         menuTitle = "Agora a bebida";
     } else menuTitle = "Por fim um docinho";
     return (
-        <section className={"menu " + type}>
+        <section className="menu">
             <h2 className="menu-name">{menuTitle}</h2>
             <ul className="options">
-                {name.map((option, index) => <MenuOption menu={option} key={index} />)}
+                {name.map((option, index) => <MenuOption menu={option} order={order} type={type} key={index} />)}
             </ul>
         </section>
     );

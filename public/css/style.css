@@ -89,6 +89,7 @@ em{
     align-items: center;
 }
 .option footer {
+    height: 20px;
     display: flex;
 }
 .counter {

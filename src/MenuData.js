@@ -2,7 +2,7 @@ const menuDessert = [
     {
         name: "Biscoitos Scooby",
         img: {
-            src: "./images/desserts/Biscoitos_Scooby.png",
+            src: "./assets/images/desserts/Biscoitos_Scooby.png",
             alt: "Caixa de Biscoitos"
         },
         description: "Um docinho para dividir com seu amiguinho de quatro patas",
@@ -11,7 +11,7 @@ const menuDessert = [
     {
         name: "Chiclé-livro",
         img: {
-            src: "./images/desserts/book-gum.jpg",
+            src: "./assets/images/desserts/book-gum.jpg",
             alt: "Desenho de livrinhos"
         },
         description: "É só mascar e começar a codar",
@@ -20,7 +20,7 @@ const menuDessert = [
     {
         name: "Donut",
         img: {
-            src: "./images/desserts/donut.jpg",
+            src: "./assets/images/desserts/donut.jpg",
             alt: "Rosquinha com cobertura rosa"
         },
         description: "Perfeito para comer em rondas",
@@ -29,7 +29,7 @@ const menuDessert = [
     {
         name: "Feijãozinho de todos os sabores",
         img: {
-            src: "./images/desserts/jelly-bean.jpg",
+            src: "./assets/images/desserts/jelly-bean.jpg",
             alt: "Caixinha de balas"
         },
         description: "Tem gosto de meleca ou limonada?",
@@ -40,7 +40,7 @@ const menuDrink = [
     {
         name: "Refrigerante de laranja",
         img: {
-            src: "./images/drinks/fanta.jpg",
+            src: "./assets/images/drinks/fanta.jpg",
             alt: "Lata de refrigerante"
         },
         description: "O Kel ama Refrigerante de laranja e você?",
@@ -49,7 +49,7 @@ const menuDrink = [
     {
         name: "Cerveja duff",
         img: {
-            src: "./images/drinks/duff.jpg",
+            src: "./assets/images/drinks/duff.jpg",
             alt: "Desenho logo duff"
         },
         description: "A melhor de Springfield",
@@ -58,7 +58,7 @@ const menuDrink = [
     {
         name: "Água voss",
         img: {
-            src: "./images/drinks/voss.jpg",
+            src: "./assets/images/drinks/voss.jpg",
             alt: "Aguinha garrafa"
         },
         description: "Não tem gosto, nem cheiro e nem cor",
@@ -67,7 +67,7 @@ const menuDrink = [
     {
         name: "Poção de vida e mana",
         img: {
-            src: "./images/drinks/mana-health.jpg",
+            src: "./assets/images/drinks/mana-health.jpg",
             alt: "Garrafinha de mana e de vida"
         },
         description: "Depois de bebê-las ficará pronto para a próxima batalha",
@@ -78,7 +78,7 @@ const menuMeal = [
     {
         name: "Hamburguer de siri",
         img: {
-            src: "./images/meal/Sponge-Bob-Burguer.png",
+            src: "./assets/images/meal/Sponge-Bob-Burguer.png",
             alt: "Desenho de hamburguer"
         },
         description: "Uma fórmula secreta de sabor",
@@ -87,7 +87,7 @@ const menuMeal = [
     {
         name: "Scooby Sandwich",
         img: {
-            src: "./images/meal/scooby.jpg",
+            src: "./assets/images/meal/scooby.jpg",
             alt: "Foto de sanduíche"
         },
         description: "Um sanduíche monstruoso",
@@ -96,7 +96,7 @@ const menuMeal = [
     {
         name: "Espinafre do po-pye",
         img: {
-            src: "./images/meal/spinach.jpg",
+            src: "./assets/images/meal/spinach.jpg",
             alt: "Desenho de espinafre"
         },
         description: "Espinafre dos fortes",
@@ -105,7 +105,7 @@ const menuMeal = [
     {
         name: "Ramen naruto",
         img: {
-            src: "./images/meal/Ramen.webp",
+            src: "./assets/images/meal/Ramen.webp",
             alt: "Desenho de Ramen"
         },
         description: "Um ramen saboroso com narutos",
