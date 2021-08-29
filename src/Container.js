@@ -9,6 +9,8 @@ export default function Container() {
     const [drinkOrder, setDrinkOrder] = useState([]);
     const [dessertOrder, setDessertOrder] = useState([]);
 
+    const totalOrder = { mealOrder, drinkOrder, dessertOrder }
+
     menuList[0].order = { mealOrder, addOrder, removeOrder };
     menuList[1].order = { drinkOrder, addOrder, removeOrder };
     menuList[2].order = { dessertOrder, addOrder, removeOrder };
@@ -81,17 +83,52 @@ export default function Container() {
         }
         isReady(false, type);
     }
-    console.log(mealOrder, drinkOrder, dessertOrder);
+
     return (
         <main className="container">
             {menuList.map((menu, index) => <Menu menu={menu} key={index} />)}
-            <SendButton sendStatus={sendStatus} />
+            <SendButton sendStatus={sendStatus} totalOrder={totalOrder} />
         </main>
     );
 }
-function SendButton({ sendStatus }) {
+function SendButton({ sendStatus, totalOrder }) {
+    const { mealOrder, drinkOrder, dessertOrder } = totalOrder;
+    function orderText(order) {
+        if (order.quantity > 1) {
+            return `${order.name} (${order.quantity}X)`;
+        }
+        return `${order.name}`;
+    }
+    function orderTotalPrice() {
+        let totalPrice = 0;
+        let thisPriceInNumber;
+        for (let i = 0; i < mealOrder.length; i++) {
+            thisPriceInNumber = Number(mealOrder[i].price.replace('R$', '').replace(',', '.'));
+            totalPrice += thisPriceInNumber * mealOrder[i].quantity;
+        }
+        for (let i = 0; i < drinkOrder.length; i++) {
+            thisPriceInNumber = Number(drinkOrder[i].price.replace('R$', '').replace(',', '.'));
+            totalPrice += thisPriceInNumber * drinkOrder[i].quantity;
+        }
+        for (let i = 0; i < dessertOrder.length; i++) {
+            thisPriceInNumber = Number(dessertOrder[i].price.replace('R$', '').replace(',', '.'));
+            totalPrice += thisPriceInNumber * dessertOrder[i].quantity;
+        }
+        return `R$ ${totalPrice.toFixed(2)}`;
+    }
+    const message = `Olá, gostaria de fazer o pedido:
+    - Prato: ${mealOrder.map((m) => orderText(m))}
+    - Bebida: ${drinkOrder.map((m) => orderText(m))}
+    - Sobremesa: ${dessertOrder.map((m) => orderText(m))}
+    -Total: ${orderTotalPrice()}`;
+    function sendMessage(sendStatus) {
+        if (sendStatus) {
+            const URI = "https://wa.me/5567992727452?text=" + encodeURIComponent(message);
+            window.open(URI)
+        }
+    }
     return (
-        <div className="button-bar ">
+        <div className="button-bar" onClick={sendMessage}>
             <button className={"send-request " + sendStatus}>
                 {sendStatus ? "Fechar pedido" : <h1>Selecione os 3 itens <br /> para fechar o pedido</h1>}
             </button>

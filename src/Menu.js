@@ -12,7 +12,7 @@ function MenuOption(props) {
         if (counter >= 1) return;
         setSelection("selected");
         setCounter(1);
-        addOrder({ name, qtd: counter + 1 }, type);
+        addOrder({ name, quantity: counter + 1,price }, type);
 
     }
     function increment() {
@@ -31,7 +31,7 @@ function MenuOption(props) {
             default: break;
         }
 
-        thisOption.qtd = counter + 1;
+        thisOption.quantity = counter + 1;
 
     }
     function decrement() {
@@ -51,8 +51,8 @@ function MenuOption(props) {
             default: break;
         }
 
-        thisOption.qtd = counter - 1;
-        if (thisOption.qtd === 0) removeOrder(thisOption,type);
+        thisOption.quantity = counter - 1;
+        if (thisOption.quantity === 0) removeOrder(thisOption,type);
     }
     return (
         <li className={"option " + selection} onClick={initCount}>
