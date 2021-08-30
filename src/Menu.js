@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 function MenuOption(props) {
+    const updateTrash = props.trash;
     const { name, img, description, price } = props.menu;
     const { src, alt } = img;
     const { mealOrder, drinkOrder, dessertOrder, addOrder ,removeOrder} = props.order;
@@ -30,7 +31,7 @@ function MenuOption(props) {
                 break;
             default: break;
         }
-
+        updateTrash();
         thisOption.quantity = counter + 1;
 
     }
@@ -50,7 +51,7 @@ function MenuOption(props) {
                 break;
             default: break;
         }
-
+        updateTrash();
         thisOption.quantity = counter - 1;
         if (thisOption.quantity === 0) removeOrder(thisOption,type);
     }
@@ -70,7 +71,8 @@ function MenuOption(props) {
         </li>
     );
 }
-export default function Menu(props) {
+export default function Menu(props,) {
+    const updateTrash = props.trash;
     const { name, type, order } = props.menu;
     let menuTitle;
     if (type === 'meal') menuTitle = "Primeiro seu prato"; else if (type === 'drink') {
@@ -80,7 +82,7 @@ export default function Menu(props) {
         <section className="menu">
             <h2 className="menu-name">{menuTitle}</h2>
             <ul className="options">
-                {name.map((option, index) => <MenuOption menu={option} order={order} type={type} key={index} />)}
+                {name.map((option, index) => <MenuOption menu={option} order={order} type={type} key={index} trash={updateTrash}/>)}
             </ul>
         </section>
     );

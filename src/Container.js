@@ -5,6 +5,7 @@ import React, { useState } from "react";
 
 export default function Container() {
 
+    const [trashLoad,setTrashLoad] = useState(0); // this variable force update page when order quantity change in Menu.js
     const [mealOrder, setMealOrder] = useState([]);
     const [drinkOrder, setDrinkOrder] = useState([]);
     const [dessertOrder, setDessertOrder] = useState([]);
@@ -15,6 +16,10 @@ export default function Container() {
     menuList[1].order = { drinkOrder, addOrder, removeOrder };
     menuList[2].order = { dessertOrder, addOrder, removeOrder };
     const [sendStatus, setSendStatus] = useState("");
+
+    function updateTrash (){
+        setTrashLoad(trashLoad+1);
+    }
 
     function isReady(param, type) {
         let mealLength = mealOrder.length;
@@ -86,8 +91,8 @@ export default function Container() {
 
     return (
         <main className="container">
-            {menuList.map((menu, index) => <Menu menu={menu} key={index} />)}
-            <SendButton sendStatus={sendStatus} totalOrder={totalOrder} />
+            {menuList.map((menu, index) => <Menu menu={menu} key={index} trash={updateTrash} />)}
+            <SendButton sendStatus={sendStatus} totalOrder={totalOrder}/>
         </main>
     );
 }
