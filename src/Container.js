@@ -126,7 +126,7 @@ function SendButton({ sendStatus, totalOrder }) {
     - Bebida: ${drinkOrder.map((m) => orderText(m))}
     - Sobremesa: ${dessertOrder.map((m) => orderText(m))}
     -Total: ${orderTotalPrice()}`;
-    function sendMessage(sendStatus) {
+    function sendMessage() {
         if (sendStatus) {
             const URI = "https://wa.me/5567992727452?text=" + encodeURIComponent(message);
             window.open(URI)
