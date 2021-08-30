@@ -8,6 +8,7 @@ import {
     Link
 } from "react-router-dom";
 
+
 export default function Container() {
     const [trashLoad, setTrashLoad] = useState(0); // this variable force update page when order quantity change in Menu.js
     const [mealOrder, setMealOrder] = useState([]);
@@ -26,7 +27,7 @@ export default function Container() {
     }
 
     function isReady(param, type) {
-        
+
         let mealLength = mealOrder.length;
         let drinkLength = drinkOrder.length;
         let dessertLength = dessertOrder.length;
@@ -65,7 +66,7 @@ export default function Container() {
         }
     }
     function addOrder(order, type) {
-        
+
         switch (type) {
             case "meal":
                 setMealOrder([...mealOrder, order]);
@@ -81,7 +82,7 @@ export default function Container() {
         isReady(true, type);
     }
     function removeOrder(order, type) {
-        
+
         switch (type) {
             case "meal":
                 setMealOrder(mealOrder.filter(option => option !== order));
@@ -92,6 +93,7 @@ export default function Container() {
             case "dessert":
                 setDessertOrder(dessertOrder.filter(option => option !== order))
                 break;
+            default: break;
         }
         isReady(false, type);
     }
@@ -104,8 +106,6 @@ export default function Container() {
     );
 }
 function SendButton({ sendStatus, totalOrder }) {
-    
-    console.log(sendStatus, totalOrder);
     const phoneNumber = 5567992727452;
     const wppURLBasic = `https://wa.me/${phoneNumber}?text=`;
     const { mealOrder, drinkOrder, dessertOrder } = totalOrder;
@@ -139,28 +139,50 @@ function SendButton({ sendStatus, totalOrder }) {
     - Sobremesa: ${dessertOrder.map((m) => orderText(m))}
     -Total: ${orderTotalPrice()}`;
     function sendMessage() {
-        
+
         if (sendStatus === "send-ready") {
             const URI = wppURLBasic + encodeURIComponent(message);
             window.open(URI)
         }
     }
-    function Review (){
+    function Review() {
         return (
-            <div className="review">
-                Oláaa
+            <div className={sendStatus?"confirm-screen":"hidden"}>
+                <div className="confirm-background"></div>
+                <div className="confirm-square">
+                    <h2 className="confirm-title"><strong>confirme seu pedido</strong></h2>
+                    <div className="review">
+                        oeied2e
+                    </div>
+                    <button onClick={sendMessage}> <strong> Tudo certo, pode pedir! </strong></button>
+                    <Link to="/">
+                    <h2>Cancelar</h2>
+                    </Link>
+                </div>
             </div>
         )
     }
+
     return (
 
-        
-                <div className="button-bar" onClick={sendMessage}>
-                    <button className={"send-request " + sendStatus}>
-                        {sendStatus ? "Fechar pedido" : <h1>Selecione os 3 itens <br /> para fechar o pedido</h1>}
-                    </button>
-                </div>
-            
+        <Router>
+            <Route>
+                <Link to="/revisao" onClick={e => sendStatus?e :e.preventDefault()}>
+                    <div className="button-bar">
+                        <button className={"send-request " + sendStatus}>
+                            {sendStatus ? "Fechar pedido" : <h1>Selecione os 3 itens <br /> para fechar o pedido</h1>}
+                        </button>
+                    </div>
+                </Link>
+            </Route>
+            <Switch>
+                <Route path="/revisao">
+                    <Review />
+                </Route>
+            </Switch>
+        </Router>
+
+
 
 
     );
