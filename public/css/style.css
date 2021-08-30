@@ -2,12 +2,6 @@ body {
     background-color: #e5e5e5;
 font-family: 'Roboto', sans-serif;
 }
-strong{
-    font-weight: bold;
-}
-em{
-    font-style: italic;
-}
 .top-bar {
     height: 92px;
     width: 100%;
@@ -20,7 +14,6 @@ em{
     left: 0;
     z-index: 1;
 }
-
 .top-container {
     margin-left: 21px;
     color: #fff;
@@ -49,8 +42,6 @@ em{
     overflow: hidden;
     overflow-x: scroll;
 }
-
-
 .option {
     min-width: 172px;
     height: 216px;

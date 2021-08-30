@@ -1,27 +1,32 @@
 import Menu from "./Menu";
 import { menuList } from "./MenuData";
 import React, { useState } from "react";
-
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
 
 export default function Container() {
-
-    const [trashLoad,setTrashLoad] = useState(0); // this variable force update page when order quantity change in Menu.js
+    const [trashLoad, setTrashLoad] = useState(0); // this variable force update page when order quantity change in Menu.js
     const [mealOrder, setMealOrder] = useState([]);
     const [drinkOrder, setDrinkOrder] = useState([]);
     const [dessertOrder, setDessertOrder] = useState([]);
+    const [sendStatus, setSendStatus] = useState("");
 
-    const totalOrder = { mealOrder, drinkOrder, dessertOrder }
+    const totalOrder = { mealOrder, drinkOrder, dessertOrder };
 
     menuList[0].order = { mealOrder, addOrder, removeOrder };
     menuList[1].order = { drinkOrder, addOrder, removeOrder };
     menuList[2].order = { dessertOrder, addOrder, removeOrder };
-    const [sendStatus, setSendStatus] = useState("");
 
-    function updateTrash (){
-        setTrashLoad(trashLoad+1);
+    function updateTrash() {
+        setTrashLoad(trashLoad + 1);
     }
 
     function isReady(param, type) {
+        
         let mealLength = mealOrder.length;
         let drinkLength = drinkOrder.length;
         let dessertLength = dessertOrder.length;
@@ -60,6 +65,7 @@ export default function Container() {
         }
     }
     function addOrder(order, type) {
+        
         switch (type) {
             case "meal":
                 setMealOrder([...mealOrder, order]);
@@ -75,6 +81,7 @@ export default function Container() {
         isReady(true, type);
     }
     function removeOrder(order, type) {
+        
         switch (type) {
             case "meal":
                 setMealOrder(mealOrder.filter(option => option !== order));
@@ -92,12 +99,17 @@ export default function Container() {
     return (
         <main className="container">
             {menuList.map((menu, index) => <Menu menu={menu} key={index} trash={updateTrash} />)}
-            <SendButton sendStatus={sendStatus} totalOrder={totalOrder}/>
+            <SendButton sendStatus={sendStatus} totalOrder={totalOrder} />
         </main>
     );
 }
 function SendButton({ sendStatus, totalOrder }) {
+    
+    console.log(sendStatus, totalOrder);
+    const phoneNumber = 5567992727452;
+    const wppURLBasic = `https://wa.me/${phoneNumber}?text=`;
     const { mealOrder, drinkOrder, dessertOrder } = totalOrder;
+
     function orderText(order) {
         if (order.quantity > 1) {
             return `${order.name} (${order.quantity}X)`;
@@ -126,17 +138,30 @@ function SendButton({ sendStatus, totalOrder }) {
     - Bebida: ${drinkOrder.map((m) => orderText(m))}
     - Sobremesa: ${dessertOrder.map((m) => orderText(m))}
     -Total: ${orderTotalPrice()}`;
-    function sendMessage(sendStatus) {
-        if (sendStatus) {
-            const URI = "https://wa.me/5567992727452?text=" + encodeURIComponent(message);
+    function sendMessage() {
+        
+        if (sendStatus === "send-ready") {
+            const URI = wppURLBasic + encodeURIComponent(message);
             window.open(URI)
         }
     }
+    function Review (){
+        return (
+            <div className="review">
+                Oláaa
+            </div>
+        )
+    }
     return (
-        <div className="button-bar" onClick={sendMessage}>
-            <button className={"send-request " + sendStatus}>
-                {sendStatus ? "Fechar pedido" : <h1>Selecione os 3 itens <br /> para fechar o pedido</h1>}
-            </button>
-        </div>
+
+        
+                <div className="button-bar" onClick={sendMessage}>
+                    <button className={"send-request " + sendStatus}>
+                        {sendStatus ? "Fechar pedido" : <h1>Selecione os 3 itens <br /> para fechar o pedido</h1>}
+                    </button>
+                </div>
+            
+
+
     );
 }
