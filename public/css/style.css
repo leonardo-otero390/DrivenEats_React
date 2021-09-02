@@ -2,12 +2,6 @@ body {
     background-color: #e5e5e5;
 font-family: 'Roboto', sans-serif;
 }
-strong{
-    font-weight: bold;
-}
-em{
-    font-style: italic;
-}
 .top-bar {
     height: 92px;
     width: 100%;
@@ -20,7 +14,6 @@ em{
     left: 0;
     z-index: 1;
 }
-
 .top-container {
     margin-left: 21px;
     color: #fff;
@@ -49,8 +42,6 @@ em{
     overflow: hidden;
     overflow-x: scroll;
 }
-
-
 .option {
     min-width: 172px;
     height: 216px;
@@ -179,6 +170,14 @@ margin-bottom: 8px;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 75%;
+}
+.review a{
+    text-decoration: none;
+    color: #fff;
+}
+.cancel{
+    text-align: center;
+    margin-top:8px;
 }
 .confirm-square button{
     width: 329px;
