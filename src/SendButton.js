@@ -5,13 +5,14 @@ import {
     Link
 } from "react-router-dom";
 
-function ReviewComponent({order}) {
-    const {name,price,quantity} = order;
+function ReviewComponent({ order }) {
+    const { name, price, quantity } = order;
+    const priceInNumber = (price.replace('R$', '').replace(',', '.') * quantity).toFixed(2);
     return (
-    <div>
-        <h2>{name}</h2>
-        <h2>{price}</h2>
-    </div>
+        <div>
+            <h2>{name}</h2>
+            <h2>R${priceInNumber.replace('.', ',')}</h2>
+        </div>
     );
 }
 
@@ -41,7 +42,7 @@ function Review({ sendStatus, totalOrder }) {
             thisPriceInNumber = Number(dessertOrder[i].price.replace('R$', '').replace(',', '.'));
             totalPrice += thisPriceInNumber * dessertOrder[i].quantity;
         }
-        return `R$ ${totalPrice.toFixed(2)}`;
+        return `R$ ${totalPrice.toFixed(2).replace('.', ',')}`;
     }
     const message = `Olá, gostaria de fazer o pedido:
     - Prato: ${mealOrder.map((m) => orderText(m))}
@@ -62,12 +63,12 @@ function Review({ sendStatus, totalOrder }) {
             <div className="confirm-square">
                 <h2 className="confirm-title"><strong>confirme seu pedido</strong></h2>
                 <div className="review">
-                    {mealOrder.map(order => <ReviewComponent order={order}/>)}
-                    {drinkOrder.map(order => <ReviewComponent order={order}/>)}
-                    {dessertOrder.map(order => <ReviewComponent order={order}/>)}
+                    {mealOrder.map(order => <ReviewComponent order={order} />)}
+                    {drinkOrder.map(order => <ReviewComponent order={order} />)}
+                    {dessertOrder.map(order => <ReviewComponent order={order} />)}
                     <div class="total">
                         <h2> <strong> TOTAL</strong></h2>
-                        <h2> <strong> total</strong></h2>
+                        <h2> <strong> {orderTotalPrice()}</strong></h2>
                     </div>
                     <button onClick={sendMessage}> <strong> Tudo certo, pode pedir! </strong></button>
                     <Link to="/">
